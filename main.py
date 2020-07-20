@@ -1,3 +1,6 @@
+##########################################################
+# 作者: 曹峻豪
+##########################################################
 from gonogo import go_nogo_Game
 from stroop import stroop
 import tkinter as tk
