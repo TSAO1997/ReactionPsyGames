@@ -43,8 +43,8 @@ class stroop():
         self.btn.place(x=330, y=450)
         self.btn.config(command=self.run)
 
-    def red_trigger(self):
-        if self.correct_ans == 'red':
+    def color_trigger(self, ans_color="None"):
+        if self.correct_ans == ans_color:
             self.result_label.configure(text='正確!', font=self.fontsize)
             if self.is_congruent == True:
                 self.congruent_time_list.append(time.time()-self.spawn_time)
@@ -52,59 +52,19 @@ class stroop():
                 self.incongruent_time_list.append(time.time()-self.spawn_time)
         else:
             self.result_label.configure(text='錯誤!', font=self.fontsize)
-
-        self.check_trial()
-        self.new_question()
-
-    def yellow_trigger(self):
-        if self.correct_ans == 'yellow':
-            self.result_label.configure(text='正確!', font=self.fontsize)
-            if self.is_congruent == True:
-                self.congruent_time_list.append(time.time()-self.spawn_time)
-            else:
-                self.incongruent_time_list.append(time.time()-self.spawn_time)
-        else:
-            self.result_label.configure(text='錯誤!', font=self.fontsize)
-
-        self.check_trial()
-        self.new_question()
-        
-    def green_trigger(self):
-        if self.correct_ans == 'green':
-            self.result_label.configure(text='正確!', font=self.fontsize)
-            if self.is_congruent == True:
-                self.congruent_time_list.append(time.time()-self.spawn_time)
-            else:
-                self.incongruent_time_list.append(time.time()-self.spawn_time)
-        else:
-            self.result_label.configure(text='錯誤!', font=self.fontsize)
-
-        self.check_trial()
-        self.new_question()
-        
-    def blue_trigger(self):
-        if self.correct_ans == 'blue':
-            self.result_label.configure(text='正確!', font=self.fontsize)
-            if self.is_congruent == True:
-                self.congruent_time_list.append(time.time()-self.spawn_time)
-            else:
-                self.incongruent_time_list.append(time.time()-self.spawn_time)
-        else:
-            self.result_label.configure(text='錯誤!', font=self.fontsize)
-            
         self.check_trial()
         self.new_question()
     
     def key_press(self, event):
         if event.char == '1':
-            self.red_trigger()
+            self.color_trigger('red')
         elif event.char == '2':
-            self.yellow_trigger()
+            self.color_trigger('yellow')
         elif event.char == '3':
-            self.green_trigger()
+            self.color_trigger('green')
         elif event.char == '4':
-            self.blue_trigger()
-            
+            self.color_trigger('blue')  
+
     def new_question(self):
         c = random.randint(0, 3)
         w = random.randint(0, 3)
@@ -165,33 +125,17 @@ class stroop():
 
         self.ans_frame = tk.Frame(self.window)
         self.ans_frame.pack(side=tk.TOP)
-        
-        self.red_label = tk.Label(self.ans_frame, text='紅', font=self.fontsize, width=6, height=2)
-        self.red_label.pack(side = tk.LEFT,fill="x", expand=True)
-
-        self.yellow_label = tk.Label(self.ans_frame, text='黃', font=self.fontsize, width=6, height=2)
-        self.yellow_label.pack(side = tk.LEFT,fill="x", expand=True)
-
-        self.green_label = tk.Label(self.ans_frame, text='綠', font=self.fontsize, width=6, height=2)
-        self.green_label.pack(side = tk.LEFT,fill="x", expand=True)
-
-        self.blue_label = tk.Label(self.ans_frame, text='藍', font=self.fontsize, width=6, height=2)
-        self.blue_label.pack(side = tk.LEFT,fill="x", expand=True)
+        self.label_and_pack_demo_char('紅', self.ans_frame)
+        self.label_and_pack_demo_char('黃', self.ans_frame)
+        self.label_and_pack_demo_char('綠', self.ans_frame)
+        self.label_and_pack_demo_char('藍', self.ans_frame)
         
         self.label_frame = tk.Frame(self.window)
         self.label_frame.pack(side=tk.TOP)
-        
-        self.label1 = tk.Label(self.label_frame, text='1', font=self.fontsize, width=6, height=2)
-        self.label1.pack(side = tk.LEFT, fill="x", expand=True)
-
-        self.label2 = tk.Label(self.label_frame, text='2', font=self.fontsize, width=6, height=2)
-        self.label2.pack(side = tk.LEFT, fill="x", expand=True)
-
-        self.label3 = tk.Label(self.label_frame, text='3', font=self.fontsize, width=6, height=2)
-        self.label3.pack(side = tk.LEFT,fill="x", expand=True)
-
-        self.label4 = tk.Label(self.label_frame, text='4', font=self.fontsize, width=6, height=2)
-        self.label4.pack(side = tk.LEFT,fill="x", expand=True)
+        self.label_and_pack_demo_char('1', self.label_frame)
+        self.label_and_pack_demo_char('2', self.label_frame)
+        self.label_and_pack_demo_char('3', self.label_frame)
+        self.label_and_pack_demo_char('4', self.label_frame)
         
         self.key_frame = tk.Frame(self.window)
         self.key_frame.bind("<KeyPress>", self.key_press)
@@ -199,6 +143,11 @@ class stroop():
         self.key_frame.focus_set()
         
         self.new_question()
+
+    def label_and_pack_demo_char(self, t, frame):
+        label = tk.Label(frame, text=t, font=self.fontsize, width=6, height=2)
+        label.pack(side = tk.LEFT,fill="x", expand=True)        
+        pass
 
 if __name__ == '__main__':
     window = tk.Tk()
