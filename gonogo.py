@@ -30,13 +30,13 @@ class go_nogo_Game(object):
         self.table = None
         self.refresh = None
 
-    def menu_picture(self):
+    '''def menu_picture(self):
         self.btn = tk.Button(self.window, text="start", width=20, height=5)
         self.btn.place(x=330, y=230)
-        self.btn.config(command=self.tutorial)
+        self.btn.config(command=self.tutorial)'''
 
     def tutorial(self):
-        self.btn.destroy()
+        #self.btn.destroy()
         self.canvas.create_text(400, 120, font=("Times New Roman", 28), text='判斷好壞球')
         self.canvas.create_text(400, 200, font=("Times New Roman", 20), text='以下會有十顆球，若為好球請按空白鍵')
         self.canvas.create_text(400, 250, font=("Times New Roman", 20), text='十顆球後，將會顯示所有球的反應時間')

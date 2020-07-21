@@ -28,13 +28,13 @@ class stroop():
         self.window.title('stroop')
         self.window.geometry('500x500') '''
 
-    def menu_picture(self):
+    '''def menu_picture(self):
         self.btn = tk.Button(self.window, text="start", width=20, height=5)
         self.btn.place(x=330, y=230)
-        self.btn.config(command=self.tutorial)
+        self.btn.config(command=self.tutorial)'''
 
     def tutorial(self):
-        self.btn.destroy()
+        #self.btn.destroy()
         self.canvas.create_text(400, 120, font=("Times New Roman", 28), text='判斷文字顏色')
         self.canvas.create_text(400, 200, font=("Times New Roman", 20), text='開始後請依照上方出現的文字顏色作答')
         self.canvas.create_text(400, 250, font=("Times New Roman", 20), text='作答時按鍵盤上對應答案的數字')
