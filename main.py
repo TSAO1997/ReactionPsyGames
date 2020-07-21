@@ -28,12 +28,12 @@ class Manager():
     def run_gonogo(self):
         self.destroy_all_button()
         self.gonogo.refresh = self.gonogo_refresh
-        self.gonogo.menu_picture()
+        self.gonogo.tutorial()
 
     def run_stroop(self):
         self.destroy_all_button()
         self.stroop.refresh = self.stroop_refresh
-        self.stroop.menu_picture()
+        self.stroop.tutorial()
     
     def gonogo_refresh(self):
         self.gonogo.table.destroy()
