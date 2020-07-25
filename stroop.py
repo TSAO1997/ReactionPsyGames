@@ -6,7 +6,7 @@ import tkinter.font as font
 import random 
 import time
 
-TRIAL_TIMES = 20
+TRIAL_TIMES = 100
 
 class stroop():
     def __init__(self, window):
@@ -23,6 +23,8 @@ class stroop():
         self.is_congruent = None
         self.btn = None
         self.refresh = None
+        self.congruent_false = 0
+        self.incongruent_false = 0
         
         '''self.window = tk.Tk()
         self.window.title('stroop')
@@ -39,7 +41,7 @@ class stroop():
         self.canvas.create_text(400, 200, font=("Times New Roman", 20), text='開始後請依照上方出現的文字顏色作答')
         self.canvas.create_text(400, 250, font=("Times New Roman", 20), text='作答時按鍵盤上對應答案的數字')
         self.canvas.create_text(400, 300, font=("Times New Roman", 20), text='紅  黃  綠  藍')
-        self.canvas.create_text(400, 350, font=("Times New Roman", 20), text='1   2   3   4')
+        self.canvas.create_text(400, 350, font=("Times New Roman", 20), text='1   4   7   0')
         self.canvas.create_text(400, 400, font=("Times New Roman", 20), text='準備好就可以開始！')
         self.canvas.pack()
         self.btn = tk.Button(self.window, text="開始遊戲", width=15, height=4)
@@ -55,17 +57,21 @@ class stroop():
                 self.incongruent_time_list.append(time.time()-self.spawn_time)
         else:
             self.result_label.configure(text='錯誤!', font=self.fontsize)
+            if self.is_congruent == True:
+                self.congruent_false += 1
+            else:
+                self.incongruent_false += 1
         self.check_trial()
         self.new_question()
     
     def key_press(self, event):
         if event.char == '1':
             self.color_trigger('red')
-        elif event.char == '2':
-            self.color_trigger('yellow')
-        elif event.char == '3':
-            self.color_trigger('green')
         elif event.char == '4':
+            self.color_trigger('yellow')
+        elif event.char == '7':
+            self.color_trigger('green')
+        elif event.char == '0':
             self.color_trigger('blue')  
 
     def new_question(self):
@@ -110,6 +116,14 @@ class stroop():
             self.canvas.pack()
             self.window.bind("<Escape>", lambda event:self.refresh())
             #exit(0)
+            
+            #write file
+            file = open('結果', 'w')
+            file.write('文字跟顏色一致時你的錯誤次數 : {}\n'.format(self.congruent_false))
+            file.write('文字跟顏色不一致時你的錯誤次數 : {}\n'.format(self.incongruent_false))
+            file.write('文字跟顏色一致時你的判斷時間 : {:.3f}\n'.format(congruent_avg))
+            file.write('文字跟顏色不一致時你的判斷時間 : {:.3f}\n'.format(incongruent_avg))
+            file.write('史楚普效應為後者時間減去前者時間 : {:.3f}\n'.format(incongruent_avg-congruent_avg))
         
     def run(self):
         self.btn.destroy()
@@ -136,9 +150,9 @@ class stroop():
         self.label_frame = tk.Frame(self.window)
         self.label_frame.pack(side=tk.TOP)
         self.label_and_pack_demo_char('1', self.label_frame)
-        self.label_and_pack_demo_char('2', self.label_frame)
-        self.label_and_pack_demo_char('3', self.label_frame)
         self.label_and_pack_demo_char('4', self.label_frame)
+        self.label_and_pack_demo_char('7', self.label_frame)
+        self.label_and_pack_demo_char('0', self.label_frame)
         
         self.key_frame = tk.Frame(self.window)
         self.key_frame.bind("<KeyPress>", self.key_press)
