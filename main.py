@@ -38,6 +38,7 @@ class Manager():
     def gonogo_refresh(self):
         self.gonogo.table.destroy()
         self.gonogo.canvas.destroy()
+        self.gonogo.btn.destroy()
         self.window.unbind("<Escape>")
         self.gonogo.__init__(self.window)
         self.__init__(self.window,self.gonogo,self.stroop)

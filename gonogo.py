@@ -25,7 +25,7 @@ class go_nogo_Game(object):
         self.fn = 0
         self.press = False
         self.btn = None
-        self.run_step = 100
+        self.run_step = 1
         self.curr_step = 1
         self.record_time = []
         self.respond_time = []
@@ -154,7 +154,7 @@ class go_nogo_Game(object):
         self.btn.config(command=self.save_result)
     
     def save_result(self):
-        f = open('result.txt', 'w')
+        f = open('好球判斷成績.txt', 'w')
         f.write('編號  反應時間(秒)\n')
         for i in range(len(self.record_time)):
             result = '{}    {}\n'.format(i+1, round(self.record_time[i], 3))

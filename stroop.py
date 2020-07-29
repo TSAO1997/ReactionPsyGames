@@ -118,7 +118,7 @@ class stroop():
             #exit(0)
             
             #write file
-            file = open('結果', 'w')
+            file = open('顏色判斷成績.txt', 'w')
             file.write('文字跟顏色一致時你的錯誤次數 : {}\n'.format(self.congruent_false))
             file.write('文字跟顏色不一致時你的錯誤次數 : {}\n'.format(self.incongruent_false))
             file.write('文字跟顏色一致時你的判斷時間 : {:.3f}\n'.format(congruent_avg))
